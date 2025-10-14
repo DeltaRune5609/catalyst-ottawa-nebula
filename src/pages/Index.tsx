@@ -4,6 +4,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Calendar, MapPin, Users, Sparkles, Rocket, Zap, ChevronRight, Star, Terminal, Code2, Cpu } from "lucide-react";
 import { TerminalText } from "@/components/TerminalText";
 import { useState, useEffect } from "react";
+import { Instagram, Mail, Heart } from "lucide-react";
+import redshiftedLogo from "@/assets/redshifted-logo.png";
+import xyzLogo from "@/assets/xyz-logo-white.png"; // Import the XYZ logo
 
 const Index = () => {
   const [activeTag, setActiveTag] = useState(0);
@@ -45,7 +48,7 @@ const Index = () => {
             {/* Presented by */}
             <div className="text-muted-foreground text-lg space-y-2">
               <p className="text-sm uppercase tracking-widest">presented by</p>
-              <p className="text-3xl font-bold text-primary">REDSHIFTED</p>
+              <img src={redshiftedLogo} alt="Redshifted Logo" className="mx-auto w-48 sm:w-64" />
             </div>
             
             {/* Info Cards */}
@@ -102,27 +105,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Video Section */}
-      <section className="relative py-32 px-4 bg-gradient-to-b from-background/80 via-background to-background">
-        <div className="container max-w-5xl">
-          <div className="relative group">
-            {/* Decorative elements */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-3xl blur-2xl opacity-50 group-hover:opacity-100 transition-opacity" />
-            
-            <div className="relative aspect-video rounded-3xl overflow-hidden border-2 border-primary/30 shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none" />
-              <iframe
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/eoovOvF7nKM"
-                title="Inside an Ottawa High School Hackathon: Lockdown 2025"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* What is a Hackathon */}
       <section className="relative py-32 px-4">
         <div className="container max-w-6xl">
@@ -142,42 +124,29 @@ const Index = () => {
             <Card className="relative overflow-hidden p-10 md:p-12 bg-card/40 backdrop-blur-xl border-primary/30 shadow-xl hover:shadow-2xl hover:shadow-primary/20 transition-all group">
               <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
               <p className="relative text-lg leading-relaxed text-foreground/90">
-                A Hackathon is a social coding marathon where teenagers come together to build projects for a weekend and share them with the world. 
-                A hackathon is a space that helps give makers everything they need to start building–mentors, collaborators, inspiration, and a goal to work towards.
+                A Hackathon is a social coding marathon where teenagers come together to build projects for a weekend and share them with the world. A hackathon is a space that helps give makers everything they need to start building–mentors, collaborators, inspiration, and a goal to work towards. Hackers will leave a hackathon with a project of their own, ready and excited to keep hacking once they get home.
               </p>
             </Card>
             
-            <div className="relative h-64 rounded-2xl border border-primary/30 bg-card/30 backdrop-blur-sm overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                {tags.map((tag, i) => (
-                  <div
-                    key={i}
-                    className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ${
-                      activeTag === i
-                        ? "opacity-100 scale-100 blur-0"
-                        : "opacity-0 scale-50 blur-sm"
-                    }`}
-                  >
-                    <div className="text-center space-y-4">
-                      <div className="text-6xl font-black text-gradient">
-                        {tag}
-                      </div>
-                      <div className="flex justify-center gap-2">
-                        {tags.map((_, dotIndex) => (
-                          <div
-                            key={dotIndex}
-                            className={`w-2 h-2 rounded-full transition-all ${
-                              dotIndex === activeTag
-                                ? "bg-primary w-8"
-                                : "bg-primary/30"
-                            }`}
-                          />
-                        ))}
-                      </div>
+          <div className="relative h-64 rounded-2xl border border-primary/30 bg-card/30 backdrop-blur-sm overflow-hidden">
+        {/* Video Section */}
+                <div className="container max-w-5xl h-full">
+                  <div className="relative group">
+                    {/* Decorative elements */}
+                    <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-3xl blur-2xl opacity-50 group-hover:opacity-100 transition-opacity" />
+                    
+                    <div className="relative aspect-video rounded-3xl overflow-hidden border-2 border-primary/30 shadow-2xl">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none" />
+                      <iframe
+                        className="w-full h-full"
+                        src="https://www.youtube.com/embed/eoovOvF7nKM"
+                        title="Inside an Ottawa High School Hackathon: Lockdown 2025"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
             </div>
           </div>
         </div>
@@ -187,58 +156,89 @@ const Index = () => {
       <section className="relative py-32 px-4">
         <div className="container max-w-6xl">
           <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-7xl font-black text-gradient mb-4">
-              Examples of Hackathons
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Join the legacy of innovation
-            </p>
+        <h2 className="text-5xl md:text-7xl font-black text-gradient mb-4">
+          Examples of Hackathons
+        </h2>
+        <p className="text-muted-foreground text-lg">
+          Join the legacy of innovation
+        </p>
           </div>
           
           <div className="grid sm:grid-cols-2 gap-6">
-            {[
-              { name: "Hack the North", subtitle: "One of the biggest hackathons in Canada", url: "https://hackthenorth.com/", color: "primary" },
-              { name: "Scrapyard", subtitle: "A recent hackathon in Ottawa", url: "https://scrapyard.hackclub.com/", color: "secondary" },
-              { name: "Counterspell", subtitle: "Another recent Ottawa hackathon", url: "https://counterspell.hackclub.com/", color: "accent" },
-              { name: "Lockdown", subtitle: "Another recent Ottawa hackathon", url: "https://lockdown.youthhacks.ca/", color: "primary" }
-            ].map((hackathon, index) => (
-              <a 
-                key={index}
-                href={hackathon.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative"
-              >
-                <div className={`absolute -inset-1 bg-gradient-to-r from-${hackathon.color}/50 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity`} />
-                <Card className="relative h-full bg-card/40 backdrop-blur-xl border-primary/20 group-hover:border-primary/60 transition-all group-hover:translate-y-[-4px] overflow-hidden">
-                  {/* Image placeholder */}
-                  <div className="relative h-48 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Rocket className={`w-20 h-20 text-${hackathon.color}/30 group-hover:rotate-12 group-hover:scale-110 transition-transform`} />
-                    </div>
-                    <div className="absolute top-4 right-4">
-                      <ChevronRight className="w-6 h-6 text-foreground/50 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="p-8">
-                    <h3 className="text-3xl font-bold mb-3 group-hover:text-primary transition-colors">
-                      {hackathon.name}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {hackathon.subtitle}
-                    </p>
-                  </div>
-                </Card>
-              </a>
-            ))}
+        {[
+          { 
+            name: "Hack the North", 
+            subtitle: "One of the biggest hackathons in Canada", 
+            url: "https://hackthenorth.com/", 
+            color: "primary",
+            image: "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/002/562/719/datas/original.png"
+          },
+          { 
+            name: "Scrapyard", 
+            subtitle: "A recent hackathon in Ottawa", 
+            url: "https://scrapyard.hackclub.com/", 
+            color: "secondary",
+            image: "https://scrapyard.hackclub.com/favicon.png"
+          },
+          { 
+            name: "Counterspell", 
+            subtitle: "Another recent Ottawa hackathon", 
+            url: "https://counterspell.hackclub.com/", 
+            color: "accent",
+            image: "https://counterspell.hackclub.com/title.png"
+          },
+          { 
+            name: "Lockdown", 
+            subtitle: "Another recent Ottawa hackathon", 
+            url: "https://lockdown.youthhacks.ca/", 
+            color: "primary",
+            image: "https://youthhacks.ca/herologo.png"
+          }
+        ].map((hackathon, index) => (
+          <a 
+            key={index}
+            href={hackathon.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative"
+          >
+            <div className={`absolute -inset-1 bg-gradient-to-r from-${hackathon.color}/50 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity`} />
+            <Card className="relative h-full bg-card/40 backdrop-blur-xl border-primary/20 group-hover:border-primary/60 transition-all group-hover:translate-y-[-4px] overflow-hidden">
+          {/* Image or Icon */}
+          <div className="relative h-40 flex items-center justify-center bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 overflow-hidden">
+            {hackathon.image ? (
+              <img
+            src={hackathon.image}
+            alt={`${hackathon.name} logo`}
+            className="max-h-24 max-w-40 object-contain mx-auto drop-shadow-lg transition-transform duration-300 group-hover:scale-105"
+            style={{ width: "auto", height: "96px" }}
+              />
+            ) : (
+              <Rocket className={`w-16 h-16 text-${hackathon.color}/30 group-hover:rotate-12 group-hover:scale-110 transition-transform`} />
+            )}
+            <div className="absolute top-4 right-4">
+              <ChevronRight className="w-6 h-6 text-foreground/50 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+          
+          {/* Content */}
+          <div className="p-8">
+            <h3 className="text-3xl font-bold mb-3 group-hover:text-primary transition-colors">
+              {hackathon.name}
+            </h3>
+            <p className="text-muted-foreground leading-relaxed">
+              {hackathon.subtitle}
+            </p>
+          </div>
+            </Card>
+          </a>
+        ))}
           </div>
         </div>
       </section>
 
       {/* About Catalyst */}
-      <section className="relative py-32 px-4">
+      <section id="about" className="relative py-32 px-4">
         <div className="container max-w-6xl">
           <div className="text-center mb-20">
             <div className="inline-flex items-center gap-3 mb-6">
@@ -291,7 +291,7 @@ const Index = () => {
                     <span className="text-secondary">{'#'}</span> Unlike traditional software hackathons...
                   </p>
                   <p>
-                    <span className="text-accent">{'>'}</span> Design, build, and test{" "}
+                    <span className="text-accent">{'>'}</span> Catalyst empowers students to design, build{" "}
                     <span className="text-secondary font-semibold">physical hardware</span>
                   </p>
                   <p>
@@ -334,7 +334,7 @@ const Index = () => {
       </section>
 
       {/* Sponsors */}
-      <section className="relative py-32 px-4">
+      <section id="sponsors" className="relative py-32 px-4">
         <div className="container max-w-6xl">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-black text-gradient mb-4">
@@ -345,21 +345,54 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-            {[1, 2, 3, 4].map((i) => (
-              <div 
-                key={i}
-                className="group relative aspect-square rounded-2xl border border-primary/20 bg-card/30 backdrop-blur-sm hover:border-primary/40 transition-all hover:scale-105 overflow-hidden"
+            {/* Sponsors Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+            {[
+              // Example sponsor objects. Add/edit as needed.
+              {
+              name: ".xyz",
+              logo: xyzLogo, // Replace with import or URL if you have a logo image
+              url: "https://gen.xyz",  // Optional: link to sponsor site
+              },
+              {
+              name: "Sponsor 1",
+              logo: null, // e.g. sponsor1Logo
+              url: null,
+              },
+              {
+              name: "Sponsor 2",
+              logo: null,
+              url: null,
+              },
+              {
+              name: "Sponsor 3",
+              logo: null,
+              url: null,
+              },
+            ].map((sponsor, i) => (
+              <div
+              key={i}
+              className="group relative aspect-square rounded-2xl border border-primary/20 bg-card/30 backdrop-blur-sm hover:border-primary/40 transition-all hover:scale-105 overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative h-full flex items-center justify-center p-6">
-                  <span className="text-center text-muted-foreground font-medium">
-                    Your Logo Here
-                  </span>
-                </div>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative h-full flex items-center justify-center p-6">
+                {sponsor.logo ? (
+                sponsor.url ? (
+                  <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                  <img src={sponsor.logo} alt={sponsor.name} className="max-h-20 mx-auto" />
+                  </a>
+                ) : (
+                  <img src={sponsor.logo} alt={sponsor.name} className="max-h-20 mx-auto" />
+                )
+                ) : (
+                <span className="text-center text-muted-foreground font-medium">
+                  {sponsor.name}
+                </span>
+                )}
+              </div>
               </div>
             ))}
-          </div>
+            </div>
           
           <Card className="p-8 bg-card/40 backdrop-blur-xl border-primary/30 text-center">
             <p className="text-lg text-muted-foreground">
@@ -376,7 +409,7 @@ const Index = () => {
       </section>
 
       {/* FAQ */}
-      <section className="relative py-32 px-4 pb-40">
+      <section id = "faq" className="relative py-32 px-4 pb-40">
         <div className="container max-w-4xl">
           <div className="text-center mb-20">
             <h2 className="text-5xl md:text-7xl font-black text-gradient mb-6">
@@ -426,6 +459,74 @@ const Index = () => {
           </Accordion>
         </div>
       </section>
+      <footer className="bg-foreground text-background py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div>
+            <img src={redshiftedLogo} alt="Redshifted Logo" className="w-64 mb-2" />
+            <p className="text-background/80">
+              Empowering Ottawa's youth through hands-on STEM education and
+              innovation.
+            </p>
+          </div>
+
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul className="space-y-2">
+              <li>
+                <a href="https://forms.gle/b2n71kTgUs7ddHD98" target="_blank" rel="noopener noreferrer">
+                  Register
+                </a>
+              </li>
+              <li>
+                <a href="#about" className="text-background/80 hover:text-primary transition-colors">
+                  About Catalyst
+                </a>
+              </li>
+              <li>
+                <a href="#sponsors" className="text-background/80 hover:text-primary transition-colors">
+                  Sponsors
+                </a>
+              </li>
+              <li>
+                <a href="#faq" className="text-background/80 hover:text-primary transition-colors">
+                  FAQ
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Connect With Us</h4>
+            <div className="flex gap-4">
+              <a
+                href="https://instagram.com/redshifted.ottawa"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-background/10 p-3 rounded-full hover:bg-primary transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a
+                href="mailto:programs@redshifted.ca"
+                className="bg-background/10 p-3 rounded-full hover:bg-primary transition-colors"
+                aria-label="Email"
+              >
+                <Mail className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-background/20 pt-8 text-center text-background/70">
+          <p className="flex items-center justify-center gap-2">
+            Made with <Heart className="w-4 h-4 text-primary" /> by the Redshifted Team
+          </p>
+          <p className="mt-2">© {new Date().getFullYear()} Redshifted. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
     </div>
   );
 };
