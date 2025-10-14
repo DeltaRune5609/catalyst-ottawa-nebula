@@ -1,9 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Calendar, MapPin, Users, Sparkles, Rocket, Zap, Play, ChevronRight, Star } from "lucide-react";
+import { Calendar, MapPin, Users, Sparkles, Rocket, Zap, ChevronRight, Star, Terminal, Code2, Cpu } from "lucide-react";
+import { TerminalText } from "@/components/TerminalText";
+import { useState, useEffect } from "react";
 
 const Index = () => {
+  const [activeTag, setActiveTag] = useState(0);
+  const tags = ["ONLINE", "READY", "INNOVATING", "BUILDING"];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveTag((prev) => (prev + 1) % tags.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Animated background stars */}
@@ -11,7 +23,7 @@ const Index = () => {
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background/80" />
         
         <div className="container relative z-10 max-w-6xl">
           <div className="text-center space-y-8 animate-fade-in">
@@ -91,7 +103,7 @@ const Index = () => {
       </section>
 
       {/* Video Section */}
-      <section className="relative py-32 px-4">
+      <section className="relative py-32 px-4 bg-gradient-to-b from-background/80 via-background to-background">
         <div className="container max-w-5xl">
           <div className="relative group">
             {/* Decorative elements */}
@@ -135,23 +147,37 @@ const Index = () => {
               </p>
             </Card>
             
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { label: "ONLINE", color: "primary" },
-                { label: "READY", color: "secondary" },
-                { label: "INNOVATING", color: "accent" },
-                { label: "BUILDING", color: "primary" }
-              ].map((tag, i) => (
-                <div 
-                  key={i}
-                  className={`relative group overflow-hidden rounded-2xl border border-${tag.color}/30 bg-card/30 backdrop-blur-sm p-6 hover:border-${tag.color}/60 transition-all hover:scale-105`}
-                >
-                  <div className={`absolute inset-0 bg-${tag.color}/5 group-hover:bg-${tag.color}/10 transition-colors`} />
-                  <p className={`relative text-center text-xl font-bold text-${tag.color}`}>
-                    {tag.label}
-                  </p>
-                </div>
-              ))}
+            <div className="relative h-64 rounded-2xl border border-primary/30 bg-card/30 backdrop-blur-sm overflow-hidden">
+              <div className="absolute inset-0 flex items-center justify-center">
+                {tags.map((tag, i) => (
+                  <div
+                    key={i}
+                    className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ${
+                      activeTag === i
+                        ? "opacity-100 scale-100 blur-0"
+                        : "opacity-0 scale-50 blur-sm"
+                    }`}
+                  >
+                    <div className="text-center space-y-4">
+                      <div className="text-6xl font-black text-gradient">
+                        {tag}
+                      </div>
+                      <div className="flex justify-center gap-2">
+                        {tags.map((_, dotIndex) => (
+                          <div
+                            key={dotIndex}
+                            className={`w-2 h-2 rounded-full transition-all ${
+                              dotIndex === activeTag
+                                ? "bg-primary w-8"
+                                : "bg-primary/30"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -184,17 +210,26 @@ const Index = () => {
                 className="group relative"
               >
                 <div className={`absolute -inset-1 bg-gradient-to-r from-${hackathon.color}/50 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity`} />
-                <Card className="relative h-full p-8 bg-card/40 backdrop-blur-xl border-primary/20 group-hover:border-primary/60 transition-all group-hover:translate-y-[-4px]">
-                  <div className="flex items-start justify-between mb-4">
-                    <Rocket className={`w-8 h-8 text-${hackathon.color} group-hover:rotate-12 transition-transform`} />
-                    <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                <Card className="relative h-full bg-card/40 backdrop-blur-xl border-primary/20 group-hover:border-primary/60 transition-all group-hover:translate-y-[-4px] overflow-hidden">
+                  {/* Image placeholder */}
+                  <div className="relative h-48 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Rocket className={`w-20 h-20 text-${hackathon.color}/30 group-hover:rotate-12 group-hover:scale-110 transition-transform`} />
+                    </div>
+                    <div className="absolute top-4 right-4">
+                      <ChevronRight className="w-6 h-6 text-foreground/50 group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </div>
-                  <h3 className="text-3xl font-bold mb-3 group-hover:text-primary transition-colors">
-                    {hackathon.name}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {hackathon.subtitle}
-                  </p>
+                  
+                  {/* Content */}
+                  <div className="p-8">
+                    <h3 className="text-3xl font-bold mb-3 group-hover:text-primary transition-colors">
+                      {hackathon.name}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {hackathon.subtitle}
+                    </p>
+                  </div>
                 </Card>
               </a>
             ))}
@@ -207,40 +242,90 @@ const Index = () => {
         <div className="container max-w-6xl">
           <div className="text-center mb-20">
             <div className="inline-flex items-center gap-3 mb-6">
-              <Rocket className="w-8 h-8 text-secondary" />
+              <Terminal className="w-8 h-8 text-primary" />
               <h2 className="text-5xl md:text-7xl font-black text-gradient">
                 About Catalyst.exe
               </h2>
-              <Zap className="w-8 h-8 text-accent" />
+              <Code2 className="w-8 h-8 text-accent" />
             </div>
           </div>
           
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 via-primary/20 to-accent/20 rounded-3xl blur-3xl" />
-            <Card className="relative p-12 md:p-16 bg-card/40 backdrop-blur-xl border-secondary/30 shadow-2xl">
-              <div className="space-y-8">
-                <p className="text-xl md:text-2xl leading-relaxed text-center">
-                  Catalyst is Ottawa's <span className="text-primary font-bold">first high-school hardware hackathon</span>, 
-                  a 24‑hour innovation sprint where teams go from idea to working prototype under tight timelines.
-                </p>
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 rounded-3xl blur-3xl" />
+            <Card className="relative bg-[#0a0a0a] backdrop-blur-xl border-primary/40 shadow-2xl overflow-hidden font-mono">
+              {/* Terminal Header */}
+              <div className="flex items-center gap-2 px-6 py-4 bg-card/50 border-b border-primary/30">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                  <div className="w-3 h-3 rounded-full bg-green-500" />
+                </div>
+                <span className="ml-4 text-sm text-muted-foreground">catalyst.exe</span>
+              </div>
+              
+              {/* Terminal Content */}
+              <div className="p-8 md:p-12 space-y-6 text-foreground/90">
+                <div className="flex gap-2">
+                  <span className="text-primary">$</span>
+                  <div className="flex-1">
+                    <TerminalText 
+                      text="cat about_catalyst.txt"
+                      speed={50}
+                      className="text-secondary"
+                    />
+                  </div>
+                </div>
                 
-                <div className="h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+                <div className="pl-4 space-y-4 text-sm md:text-base leading-relaxed">
+                  <p>
+                    <span className="text-accent">{'>'}</span> Catalyst is Ottawa&apos;s{" "}
+                    <span className="text-primary font-bold">first high-school hardware hackathon</span>
+                  </p>
+                  <p>
+                    <span className="text-accent">{'>'}</span> 24-hour innovation sprint
+                  </p>
+                  <p>
+                    <span className="text-accent">{'>'}</span> Teams go from idea to working prototype
+                  </p>
+                  <p className="pt-4 border-t border-primary/20">
+                    <span className="text-secondary">{'#'}</span> Unlike traditional software hackathons...
+                  </p>
+                  <p>
+                    <span className="text-accent">{'>'}</span> Design, build, and test{" "}
+                    <span className="text-secondary font-semibold">physical hardware</span>
+                  </p>
+                  <p>
+                    <span className="text-accent">{'>'}</span> Circuits, sensors, mechanical systems
+                  </p>
+                  <p>
+                    <span className="text-accent">{'>'}</span> Expert mentorship and hands-on support
+                  </p>
+                </div>
                 
-                <p className="text-lg md:text-xl leading-relaxed text-center text-muted-foreground">
-                  Unlike traditional software hackathons, Catalyst empowers students to design, build, and test 
-                  <span className="text-secondary font-semibold"> physical hardware</span> from circuits and sensors to mechanical systems 
-                  with expert mentorship and hands-on support.
-                </p>
-                
-                <div className="flex flex-wrap justify-center gap-4 pt-8">
-                  {["ONLINE", "READY", "INNOVATING"].map((tag) => (
-                    <div 
-                      key={tag}
-                      className="px-8 py-3 rounded-full bg-secondary/20 border border-secondary/40 text-secondary font-bold text-lg hover:bg-secondary/30 transition-colors"
-                    >
-                      {tag}
+                <div className="flex gap-2 pt-6">
+                  <span className="text-primary">$</span>
+                  <div className="flex-1 flex items-center gap-4">
+                    <span className="text-muted-foreground">System Status:</span>
+                    <div className="flex gap-6">
+                      <span className="flex items-center gap-2">
+                        <Cpu className="w-4 h-4 text-primary animate-pulse" />
+                        <span className="text-primary">ACTIVE</span>
+                      </span>
+                      <span className="flex items-center gap-2">
+                        <Rocket className="w-4 h-4 text-secondary" />
+                        <span className="text-secondary">READY</span>
+                      </span>
+                      <span className="flex items-center gap-2">
+                        <Zap className="w-4 h-4 text-accent" />
+                        <span className="text-accent">POWERED</span>
+                      </span>
                     </div>
-                  ))}
+                  </div>
+                </div>
+                
+                <div className="flex gap-2">
+                  <span className="text-primary">$</span>
+                  <span className="text-muted-foreground animate-pulse">_</span>
                 </div>
               </div>
             </Card>
