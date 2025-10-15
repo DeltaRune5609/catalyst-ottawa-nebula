@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Calendar, MapPin, Users, Sparkles, Rocket, Zap, ChevronRight, Star, Terminal, Code2, Cpu } from "lucide-react";
+import { Calendar, MapPin, Users, Sparkles, Rocket, Zap, ChevronRight, Star, Terminal, Code2, Cpu, Trophy, Award, Medal, TrendingUp } from "lucide-react";
 import { TerminalText } from "@/components/TerminalText";
 import { useState, useEffect } from "react";
 import { Instagram, Mail, Heart } from "lucide-react";
@@ -11,12 +11,22 @@ import xyzLogo from "@/assets/xyz-logo-white.png"; // Import the XYZ logo
 const Index = () => {
   const [activeTag, setActiveTag] = useState(0);
   const tags = ["ONLINE", "READY", "INNOVATING", "BUILDING"];
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredSponsor, setHoveredSponsor] = useState<string | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveTag((prev) => (prev + 1) % tags.length);
     }, 2000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   return (
@@ -128,7 +138,13 @@ const Index = () => {
               </p>
             </Card>
             
-          <div className="relative h-64 rounded-2xl border border-primary/30 bg-card/30 backdrop-blur-sm overflow-hidden">
+          <div 
+              className="relative h-64 rounded-2xl border border-primary/30 bg-card/30 backdrop-blur-sm overflow-hidden group"
+              style={{
+                transform: `perspective(1000px) rotateX(${(mousePosition.y - (typeof window !== 'undefined' ? window.innerHeight : 800) / 2) / 100}deg) rotateY(${(mousePosition.x - (typeof window !== 'undefined' ? window.innerWidth : 800) / 2) / 100}deg)`,
+                transition: 'transform 0.1s ease-out'
+              }}
+            >
         {/* Video Section */}
                 <div className="container max-w-5xl h-full">
                   <div className="relative group">
@@ -345,56 +361,220 @@ const Index = () => {
             </p>
           </div>
           
-            {/* Sponsors Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-            {[
-              // Example sponsor objects. Add/edit as needed.
-              {
-              name: ".xyz",
-              logo: xyzLogo, // Replace with import or URL if you have a logo image
-              url: "https://gen.xyz",  // Optional: link to sponsor site
-              },
-              {
-              name: "Sponsor 1",
-              logo: null, // e.g. sponsor1Logo
-              url: null,
-              },
-              {
-              name: "Sponsor 2",
-              logo: null,
-              url: null,
-              },
-              {
-              name: "Sponsor 3",
-              logo: null,
-              url: null,
-              },
-            ].map((sponsor, i) => (
-              <div
-              key={i}
-              className="group relative aspect-square rounded-2xl border border-primary/20 bg-card/30 backdrop-blur-sm hover:border-primary/40 transition-all hover:scale-105 overflow-hidden"
-              >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative h-full flex items-center justify-center p-6">
-                {sponsor.logo ? (
-                sponsor.url ? (
-                  <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
-                  <img src={sponsor.logo} alt={sponsor.name} className="max-h-20 mx-auto" />
-                  </a>
-                ) : (
-                  <img src={sponsor.logo} alt={sponsor.name} className="max-h-20 mx-auto" />
-                )
-                ) : (
-                <span className="text-center text-muted-foreground font-medium">
-                  {sponsor.name}
-                </span>
-                )}
+          <div className="space-y-16">
+            {/* Platinum Sponsors */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-center gap-3">
+                <Trophy className="w-8 h-8 text-primary" />
+                <h3 className="text-3xl md:text-4xl font-bold text-gradient">Platinum Sponsors</h3>
+                <Trophy className="w-8 h-8 text-primary" />
               </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {[
+                  { name: "Platinum 1", logo: null, url: null },
+                  { name: "Platinum 2", logo: null, url: null },
+                ].map((sponsor, i) => (
+                  <div
+                    key={i}
+                    onMouseEnter={() => setHoveredSponsor(`platinum-${i}`)}
+                    onMouseLeave={() => setHoveredSponsor(null)}
+                    className="group relative aspect-[2/1] rounded-3xl border-2 border-primary/40 bg-gradient-to-br from-primary/20 via-card/40 to-card/40 backdrop-blur-xl hover:border-primary/80 transition-all hover:scale-105 overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="relative h-full flex items-center justify-center p-8">
+                      {sponsor.logo ? (
+                        sponsor.url ? (
+                          <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-32 mx-auto" />
+                          </a>
+                        ) : (
+                          <img src={sponsor.logo} alt={sponsor.name} className="max-h-32 mx-auto" />
+                        )
+                      ) : (
+                        <span className="text-center text-muted-foreground font-semibold text-xl">
+                          {sponsor.name}
+                        </span>
+                      )}
+                    </div>
+                    <div className="absolute top-4 right-4">
+                      <Trophy className="w-6 h-6 text-primary" />
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
             </div>
+
+            {/* Gold Sponsors */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-center gap-3">
+                <Award className="w-7 h-7 text-secondary" />
+                <h3 className="text-2xl md:text-3xl font-bold text-gradient">Gold Sponsors</h3>
+                <Award className="w-7 h-7 text-secondary" />
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                {[
+                  { name: "Gold 1", logo: null, url: null },
+                  { name: "Gold 2", logo: null, url: null },
+                  { name: "Gold 3", logo: null, url: null },
+                ].map((sponsor, i) => (
+                  <div
+                    key={i}
+                    onMouseEnter={() => setHoveredSponsor(`gold-${i}`)}
+                    onMouseLeave={() => setHoveredSponsor(null)}
+                    className="group relative aspect-square rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-secondary/20 via-card/40 to-card/40 backdrop-blur-xl hover:border-secondary/80 transition-all hover:scale-105 overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="relative h-full flex items-center justify-center p-6">
+                      {sponsor.logo ? (
+                        sponsor.url ? (
+                          <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-24 mx-auto" />
+                          </a>
+                        ) : (
+                          <img src={sponsor.logo} alt={sponsor.name} className="max-h-24 mx-auto" />
+                        )
+                      ) : (
+                        <span className="text-center text-muted-foreground font-medium text-lg">
+                          {sponsor.name}
+                        </span>
+                      )}
+                    </div>
+                    <div className="absolute top-3 right-3">
+                      <Award className="w-5 h-5 text-secondary" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Silver Sponsors */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-center gap-3">
+                <Medal className="w-6 h-6 text-accent" />
+                <h3 className="text-xl md:text-2xl font-bold text-gradient">Silver Sponsors</h3>
+                <Medal className="w-6 h-6 text-accent" />
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {[
+                  { name: "Silver 1", logo: null, url: null },
+                  { name: "Silver 2", logo: null, url: null },
+                  { name: "Silver 3", logo: null, url: null },
+                  { name: "Silver 4", logo: null, url: null },
+                ].map((sponsor, i) => (
+                  <div
+                    key={i}
+                    onMouseEnter={() => setHoveredSponsor(`silver-${i}`)}
+                    onMouseLeave={() => setHoveredSponsor(null)}
+                    className="group relative aspect-square rounded-2xl border border-accent/30 bg-card/30 backdrop-blur-sm hover:border-accent/60 transition-all hover:scale-105 overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="relative h-full flex items-center justify-center p-4">
+                      {sponsor.logo ? (
+                        sponsor.url ? (
+                          <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-16 mx-auto" />
+                          </a>
+                        ) : (
+                          <img src={sponsor.logo} alt={sponsor.name} className="max-h-16 mx-auto" />
+                        )
+                      ) : (
+                        <span className="text-center text-muted-foreground font-medium text-sm">
+                          {sponsor.name}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Bronze Sponsors */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-center gap-3">
+                <TrendingUp className="w-6 h-6 text-primary/60" />
+                <h3 className="text-xl md:text-2xl font-bold text-muted-foreground">Bronze Sponsors</h3>
+                <TrendingUp className="w-6 h-6 text-primary/60" />
+              </div>
+              <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
+                {[
+                  { name: "Bronze 1", logo: null, url: null },
+                  { name: "Bronze 2", logo: null, url: null },
+                  { name: "Bronze 3", logo: null, url: null },
+                  { name: "Bronze 4", logo: null, url: null },
+                  { name: "Bronze 5", logo: null, url: null },
+                ].map((sponsor, i) => (
+                  <div
+                    key={i}
+                    onMouseEnter={() => setHoveredSponsor(`bronze-${i}`)}
+                    onMouseLeave={() => setHoveredSponsor(null)}
+                    className="group relative aspect-square rounded-xl border border-primary/20 bg-card/20 backdrop-blur-sm hover:border-primary/40 transition-all hover:scale-105 overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="relative h-full flex items-center justify-center p-3">
+                      {sponsor.logo ? (
+                        sponsor.url ? (
+                          <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-12 mx-auto" />
+                          </a>
+                        ) : (
+                          <img src={sponsor.logo} alt={sponsor.name} className="max-h-12 mx-auto" />
+                        )
+                      ) : (
+                        <span className="text-center text-muted-foreground font-medium text-xs">
+                          {sponsor.name}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Community Sponsors */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-center gap-3">
+                <Heart className="w-6 h-6 text-primary/60" />
+                <h3 className="text-xl md:text-2xl font-bold text-muted-foreground">Community Sponsors</h3>
+                <Heart className="w-6 h-6 text-primary/60" />
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+                {[
+                  { name: ".xyz", logo: xyzLogo, url: "https://gen.xyz" },
+                  { name: "Community 2", logo: null, url: null },
+                  { name: "Community 3", logo: null, url: null },
+                  { name: "Community 4", logo: null, url: null },
+                  { name: "Community 5", logo: null, url: null },
+                  { name: "Community 6", logo: null, url: null },
+                ].map((sponsor, i) => (
+                  <div
+                    key={i}
+                    onMouseEnter={() => setHoveredSponsor(`community-${i}`)}
+                    onMouseLeave={() => setHoveredSponsor(null)}
+                    className="group relative aspect-square rounded-xl border border-primary/20 bg-card/20 backdrop-blur-sm hover:border-primary/40 transition-all hover:scale-105 overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="relative h-full flex items-center justify-center p-3">
+                      {sponsor.logo ? (
+                        sponsor.url ? (
+                          <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-10 mx-auto" />
+                          </a>
+                        ) : (
+                          <img src={sponsor.logo} alt={sponsor.name} className="max-h-10 mx-auto" />
+                        )
+                      ) : (
+                        <span className="text-center text-muted-foreground font-medium text-xs">
+                          {sponsor.name}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
           
-          <Card className="p-8 bg-card/40 backdrop-blur-xl border-primary/30 text-center">
+          <Card className="p-8 bg-card/40 backdrop-blur-xl border-primary/30 text-center mt-16">
             <p className="text-lg text-muted-foreground">
               Interested in sponsoring? Contact{" "}
               <a 
@@ -424,38 +604,49 @@ const Index = () => {
             {[
               {
                 q: "What is Catalyst?",
-                a: "Catalyst is a high-energy hardware hackathon where students come together to build, learn, and innovate on cutting-edge tech challenges."
+                a: "Catalyst is a high-energy hardware hackathon where students come together to build, learn, and innovate on cutting-edge tech challenges.",
+                icon: Sparkles
               },
               {
                 q: "Who can participate?",
-                a: "Catalyst is open to high school students of all skill levels. Whether you're a beginner or a seasoned hacker, you're welcome!"
+                a: "Catalyst is open to high school students of all skill levels. Whether you're a beginner or a seasoned hacker, you're welcome!",
+                icon: Users
               },
               {
                 q: "Is there a fee to participate?",
-                a: "Our price is TBD, depending on the donations from our generous sponsors, but it will be around $50-$100."
+                a: "Our price is TBD, depending on the donations from our generous sponsors, but it will be around $50-$100.",
+                icon: Trophy
               },
               {
                 q: "What should I bring?",
-                a: "Just bring your laptop, charger, any necessary personal items, and lots of curiosity. We provide hardware kits and tools!"
+                a: "Just bring your laptop, charger, any necessary personal items, and lots of curiosity. We provide hardware kits and tools!",
+                icon: Rocket
               },
               {
                 q: "How do I register?",
-                a: "You can sign up through our official website. Registration opens soon—stay tuned!"
+                a: "You can sign up through our official website. Registration opens soon—stay tuned!",
+                icon: Star
               }
-            ].map((faq, i) => (
-              <AccordionItem 
-                key={i}
-                value={`item-${i}`} 
-                className="group border border-primary/20 rounded-2xl px-6 bg-card/30 backdrop-blur-sm hover:border-primary/40 transition-all data-[state=open]:border-primary/60 data-[state=open]:shadow-xl data-[state=open]:shadow-primary/10"
-              >
-                <AccordionTrigger className="text-lg font-semibold hover:text-primary py-6 hover:no-underline">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-base leading-relaxed pb-6">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
+            ].map((faq, i) => {
+              const IconComponent = faq.icon;
+              return (
+                <AccordionItem 
+                  key={i}
+                  value={`item-${i}`} 
+                  className="group border border-primary/20 rounded-2xl px-6 bg-card/30 backdrop-blur-sm hover:border-primary/40 transition-all data-[state=open]:border-primary/60 data-[state=open]:shadow-xl data-[state=open]:shadow-primary/10 data-[state=open]:scale-[1.02]"
+                >
+                  <AccordionTrigger className="text-lg font-semibold hover:text-primary py-6 hover:no-underline">
+                    <div className="flex items-center gap-3">
+                      <IconComponent className="w-5 h-5 text-primary group-data-[state=open]:animate-pulse" />
+                      {faq.q}
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground text-base leading-relaxed pb-6 pl-8">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
           </Accordion>
         </div>
       </section>
