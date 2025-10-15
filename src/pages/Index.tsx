@@ -34,6 +34,14 @@ const Index = () => {
       {/* Animated background stars */}
       <div className="fixed inset-0 star-field pointer-events-none" />
       
+      {/* Shooting stars */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="shooting-star shooting-star-1" />
+        <div className="shooting-star shooting-star-2" />
+        <div className="shooting-star shooting-star-3" />
+        <div className="shooting-star shooting-star-4" />
+      </div>
+      
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background/80" />
@@ -139,30 +147,43 @@ const Index = () => {
             </Card>
             
           <div 
-              className="relative h-64 rounded-2xl border border-primary/30 bg-card/30 backdrop-blur-sm overflow-hidden group"
+              className="relative h-64 rounded-2xl overflow-hidden group cursor-pointer"
               style={{
                 transform: `perspective(1000px) rotateX(${(mousePosition.y - (typeof window !== 'undefined' ? window.innerHeight : 800) / 2) / 100}deg) rotateY(${(mousePosition.x - (typeof window !== 'undefined' ? window.innerWidth : 800) / 2) / 100}deg)`,
                 transition: 'transform 0.1s ease-out'
               }}
             >
-        {/* Video Section */}
-                <div className="container max-w-5xl h-full">
-                  <div className="relative group">
-                    {/* Decorative elements */}
-                    <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-3xl blur-2xl opacity-50 group-hover:opacity-100 transition-opacity" />
-                    
-                    <div className="relative aspect-video rounded-3xl overflow-hidden border-2 border-primary/30 shadow-2xl">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none" />
-                      <iframe
-                        className="w-full h-full"
-                        src="https://www.youtube.com/embed/eoovOvF7nKM"
-                        title="Inside an Ottawa High School Hackathon: Lockdown 2025"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                    </div>
-                  </div>
+              {/* Animated cosmic glow */}
+              <div className="absolute -inset-8 bg-gradient-to-r from-primary/40 via-secondary/40 to-accent/40 rounded-3xl blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
+              
+              {/* Orbiting particles */}
+              <div className="absolute -inset-4 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <div className="absolute top-0 left-1/4 w-2 h-2 bg-primary rounded-full animate-ping" />
+                <div className="absolute top-1/4 right-0 w-2 h-2 bg-secondary rounded-full animate-ping" style={{ animationDelay: '0.5s' }} />
+                <div className="absolute bottom-0 right-1/4 w-2 h-2 bg-accent rounded-full animate-ping" style={{ animationDelay: '1s' }} />
+                <div className="absolute bottom-1/4 left-0 w-2 h-2 bg-primary rounded-full animate-ping" style={{ animationDelay: '1.5s' }} />
+              </div>
+
+              {/* Video Section */}
+              <div className="relative h-full border-2 border-primary/30 rounded-3xl overflow-hidden shadow-2xl group-hover:border-primary/60 group-hover:shadow-primary/50 transition-all duration-500 bg-card/30 backdrop-blur-sm">
+                {/* Corner glow effects */}
+                <div className="absolute top-0 left-0 w-32 h-32 bg-primary/30 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute bottom-0 right-0 w-32 h-32 bg-accent/30 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* Scanline effect */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" 
+                     style={{ animation: 'scanline 2s linear infinite' }} />
+                
+                <div className="relative w-full h-full">
+                  <iframe
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/eoovOvF7nKM"
+                    title="Inside an Ottawa High School Hackathon: Lockdown 2025"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
                 </div>
+              </div>
             </div>
           </div>
         </div>
