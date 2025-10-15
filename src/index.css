@@ -143,10 +143,10 @@ All colors MUST be HSL.
     content: '';
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     width: 100px;
     height: 1px;
-    background: linear-gradient(90deg, white, transparent);
+    background: linear-gradient(90deg, transparent, white);
   }
 
   @keyframes shootingStar {

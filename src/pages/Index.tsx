@@ -117,9 +117,7 @@ const Index = () => {
         
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 rounded-full border-2 border-primary/50 flex items-start justify-center p-2">
-            <div className="w-1 h-3 rounded-full bg-primary animate-pulse" />
-          </div>
+          <ChevronRight className="w-8 h-8 text-primary rotate-90" />
         </div>
       </section>
 
@@ -139,7 +137,7 @@ const Index = () => {
           
           {/* Content Grid */}
           <div className="grid md:grid-cols-2 gap-8 items-center">
-            <Card className="relative overflow-hidden p-10 md:p-12 bg-card/40 backdrop-blur-xl border-primary/30 shadow-xl hover:shadow-2xl hover:shadow-primary/20 transition-all group">
+            <Card className="relative overflow-hidden p-10 md:p-12 bg-card/40 backdrop-blur-xl border-primary/30 shadow-xl hover:shadow-2xl hover:shadow-primary/20 transition-all group h-full">
               <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
               <p className="relative text-lg leading-relaxed text-foreground/90">
                 A Hackathon is a social coding marathon where teenagers come together to build projects for a weekend and share them with the world. A hackathon is a space that helps give makers everything they need to start building–mentors, collaborators, inspiration, and a goal to work towards. Hackers will leave a hackathon with a project of their own, ready and excited to keep hacking once they get home.
@@ -147,7 +145,7 @@ const Index = () => {
             </Card>
             
           <div 
-              className="relative h-64 rounded-2xl overflow-hidden group cursor-pointer"
+              className="relative rounded-2xl overflow-hidden group cursor-pointer h-full"
               style={{
                 transform: `perspective(1000px) rotateX(${(mousePosition.y - (typeof window !== 'undefined' ? window.innerHeight : 800) / 2) / 100}deg) rotateY(${(mousePosition.x - (typeof window !== 'undefined' ? window.innerWidth : 800) / 2) / 100}deg)`,
                 transition: 'transform 0.1s ease-out'
