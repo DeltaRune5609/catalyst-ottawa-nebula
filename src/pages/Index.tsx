@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import ECard from "@/components/ElectricBorder";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Calendar, MapPin, Users, Sparkles, Rocket, Zap, ChevronRight, Star, Terminal, Code2, Cpu, Trophy, Award, Medal, TrendingUp } from "lucide-react";
 import { TerminalText } from "@/components/TerminalText";
@@ -7,6 +8,8 @@ import { useState, useEffect } from "react";
 import { Instagram, Mail, Heart } from "lucide-react";
 import redshiftedLogo from "@/assets/redshifted-logo.png";
 import xyzLogo from "@/assets/xyz-logo-white.png"; // Import the XYZ logo
+import GlitchText from '@/components/GlitchText';
+
 
 const Index = () => {
   const [activeTag, setActiveTag] = useState(0);
@@ -51,9 +54,14 @@ const Index = () => {
             {/* Main Title */}
             <div className="relative inline-block">
               <div className="absolute -inset-4 bg-primary/20 blur-3xl rounded-full" />
-              <h1 className="relative text-7xl sm:text-8xl md:text-9xl lg:text-[12rem] font-black tracking-tighter text-gradient glow-primary leading-none">
-                CATALYST
-              </h1>
+                <GlitchText
+                  speed={1.5}
+                  enableShadows={true}
+                  enableOnHover={false}
+                  className='custom-class'
+                >
+                  Catalyst
+                </GlitchText>
             </div>
             
             {/* Decorative line */}
@@ -137,12 +145,12 @@ const Index = () => {
           
           {/* Content Grid */}
           <div className="grid md:grid-cols-2 gap-8 items-center">
-            <Card className="relative overflow-hidden p-10 md:p-12 bg-card/40 backdrop-blur-xl border-primary/30 shadow-xl hover:shadow-2xl hover:shadow-primary/20 transition-all group h-full">
+            <ECard className="relative overflow-hidden p-10 md:p-12 bg-card/40 backdrop-blur-xl border-primary/30 shadow-xl hover:shadow-2xl hover:shadow-primary/20 transition-all group h-full">
               <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
               <p className="relative text-lg leading-relaxed text-foreground/90">
                 A Hackathon is a social coding marathon where teenagers come together to build projects for a weekend and share them with the world. A hackathon is a space that helps give makers everything they need to start building–mentors, collaborators, inspiration, and a goal to work towards. Hackers will leave a hackathon with a project of their own, ready and excited to keep hacking once they get home.
               </p>
-            </Card>
+            </ECard>
             
           <div 
               className="relative rounded-2xl overflow-hidden group cursor-pointer h-full"
@@ -238,7 +246,7 @@ const Index = () => {
             className="group relative"
           >
             <div className={`absolute -inset-1 bg-gradient-to-r from-${hackathon.color}/50 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity`} />
-            <Card className="relative h-full bg-card/40 backdrop-blur-xl border-primary/20 group-hover:border-primary/60 transition-all group-hover:translate-y-[-4px] overflow-hidden">
+            <ECard className="relative h-full bg-card/40 backdrop-blur-xl border-primary/20 group-hover:border-primary/60 transition-all group-hover:translate-y-[-4px] overflow-hidden">
           {/* Image or Icon */}
           <div className="relative h-40 flex items-center justify-center bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 overflow-hidden">
             {hackathon.image ? (
@@ -265,7 +273,7 @@ const Index = () => {
               {hackathon.subtitle}
             </p>
           </div>
-            </Card>
+            </ECard>
           </a>
         ))}
           </div>
@@ -426,13 +434,13 @@ const Index = () => {
             {/* Gold Sponsors */}
             <div className="space-y-6">
               <div className="flex items-center justify-center gap-3">
-                <Award className="w-7 h-7 text-secondary" />
-                <h3 className="text-2xl md:text-3xl font-bold text-gradient">Gold Sponsors</h3>
-                <Award className="w-7 h-7 text-secondary" />
+                <Award className="w-7 h-7 text-yellow-500" />
+                <h3 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">Gold Sponsors</h3>
+                <Award className="w-7 h-7 text-yellow-500" />
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 {[
-                  { name: "Gold 1", logo: null, url: null },
+                  { name: "YRI Fellowship", logo: "YRI-logo-white.webp", url: "https://yriscience.com/" },
                   { name: "Gold 2", logo: null, url: null },
                   { name: "Gold 3", logo: null, url: null },
                 ].map((sponsor, i) => (
@@ -440,9 +448,9 @@ const Index = () => {
                     key={i}
                     onMouseEnter={() => setHoveredSponsor(`gold-${i}`)}
                     onMouseLeave={() => setHoveredSponsor(null)}
-                    className="group relative aspect-square rounded-2xl border-2 border-secondary/40 bg-gradient-to-br from-secondary/20 via-card/40 to-card/40 backdrop-blur-xl hover:border-secondary/80 transition-all hover:scale-105 overflow-hidden"
+                    className="group relative aspect-square rounded-2xl border-2 border-yellow-500/40 bg-gradient-to-br from-yellow-500/20 via-card/40 to-card/40 backdrop-blur-xl hover:border-yellow-500/80 transition-all hover:scale-105 overflow-hidden"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     <div className="relative h-full flex items-center justify-center p-6">
                       {sponsor.logo ? (
                         sponsor.url ? (
@@ -459,7 +467,7 @@ const Index = () => {
                       )}
                     </div>
                     <div className="absolute top-3 right-3">
-                      <Award className="w-5 h-5 text-secondary" />
+                      <Award className="w-5 h-5 text-yellow-500" />
                     </div>
                   </div>
                 ))}
@@ -469,38 +477,40 @@ const Index = () => {
             {/* Silver Sponsors */}
             <div className="space-y-6">
               <div className="flex items-center justify-center gap-3">
-                <Medal className="w-6 h-6 text-accent" />
-                <h3 className="text-xl md:text-2xl font-bold text-gradient">Silver Sponsors</h3>
-                <Medal className="w-6 h-6 text-accent" />
+                <Award className="w-7 h-7 text-gray-400" />
+                <h3 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-300 to-gray-500">Silver Sponsors</h3>
+                <Award className="w-7 h-7 text-gray-400" />
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 {[
                   { name: "Silver 1", logo: null, url: null },
                   { name: "Silver 2", logo: null, url: null },
                   { name: "Silver 3", logo: null, url: null },
-                  { name: "Silver 4", logo: null, url: null },
                 ].map((sponsor, i) => (
                   <div
                     key={i}
                     onMouseEnter={() => setHoveredSponsor(`silver-${i}`)}
                     onMouseLeave={() => setHoveredSponsor(null)}
-                    className="group relative aspect-square rounded-2xl border border-accent/30 bg-card/30 backdrop-blur-sm hover:border-accent/60 transition-all hover:scale-105 overflow-hidden"
+                    className="group relative aspect-square rounded-2xl border-2 border-gray-400/40 bg-gradient-to-br from-gray-400/20 via-card/40 to-card/40 backdrop-blur-xl hover:border-gray-400/80 transition-all hover:scale-105 overflow-hidden"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="relative h-full flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="relative h-full flex items-center justify-center p-6">
                       {sponsor.logo ? (
                         sponsor.url ? (
                           <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
-                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-16 mx-auto" />
+                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-24 mx-auto" />
                           </a>
                         ) : (
-                          <img src={sponsor.logo} alt={sponsor.name} className="max-h-16 mx-auto" />
+                          <img src={sponsor.logo} alt={sponsor.name} className="max-h-24 mx-auto" />
                         )
                       ) : (
-                        <span className="text-center text-muted-foreground font-medium text-sm">
+                        <span className="text-center text-muted-foreground font-medium text-lg">
                           {sponsor.name}
                         </span>
                       )}
+                    </div>
+                    <div className="absolute top-3 right-3">
+                      <Award className="w-5 h-5 text-gray-400" />
                     </div>
                   </div>
                 ))}
@@ -511,7 +521,7 @@ const Index = () => {
             <div className="space-y-6">
               <div className="flex items-center justify-center gap-3">
                 <TrendingUp className="w-6 h-6 text-primary/60" />
-                <h3 className="text-xl md:text-2xl font-bold text-muted-foreground">Bronze Sponsors</h3>
+                <h3 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">Bronze Sponsors</h3>
                 <TrendingUp className="w-6 h-6 text-primary/60" />
               </div>
               <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
@@ -593,7 +603,7 @@ const Index = () => {
             </div>
           </div>
           
-          <Card className="p-8 bg-card/40 backdrop-blur-xl border-primary/30 text-center mt-16">
+          <ECard className="p-8 bg-card/40 backdrop-blur-xl border-primary/30 text-center mt-16">
             <p className="text-lg text-muted-foreground">
               Interested in sponsoring? Contact{" "}
               <a 
@@ -603,7 +613,7 @@ const Index = () => {
                 andy.han@redshifted.ca
               </a>
             </p>
-          </Card>
+          </ECard>
         </div>
       </section>
 
