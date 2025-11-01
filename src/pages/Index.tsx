@@ -10,6 +10,7 @@ import redshiftedLogo from "@/assets/redshifted-logo.png";
 import xyzLogo from "@/assets/xyz-logo-white.png"; // Import the XYZ logo
 import GlitchText from '@/components/GlitchText';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import PromoBanner from '@/components/promo';
 
 
 const Index = () => {
@@ -36,6 +37,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+              <PromoBanner />
       {/* Animated background stars */}
       <div className="fixed inset-0 star-field pointer-events-none" />
       
@@ -50,7 +52,6 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background/80" />
-        
         <div className="container relative z-10 max-w-6xl">
           <div className="text-center space-y-8 animate-fade-in">
             {/* Main Title */}
