@@ -9,6 +9,7 @@ import { Instagram, Mail, Heart } from "lucide-react";
 import redshiftedLogo from "@/assets/redshifted-logo.png";
 import xyzLogo from "@/assets/xyz-logo-white.png"; // Import the XYZ logo
 import GlitchText from '@/components/GlitchText';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 
 const Index = () => {
@@ -16,6 +17,7 @@ const Index = () => {
   const tags = ["ONLINE", "READY", "INNOVATING", "BUILDING"];
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredSponsor, setHoveredSponsor] = useState<string | null>(null);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -396,33 +398,36 @@ const Index = () => {
                 <h3 className="text-3xl md:text-4xl font-bold text-gradient">Platinum Sponsors</h3>
                 <Trophy className="w-8 h-8 text-primary" />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className={`flex flex-wrap justify-center transition-gap duration-300 ${hoveredCategory === 'platinum' ? 'gap-12 md:gap-16' : 'gap-8'}`}>
                 {[
-                  { name: "Platinum 1", logo: null, url: null },
-                  { name: "Platinum 2", logo: null, url: null },
+                  { name: "Your logo here", logo: null, url: null },
+                  //{ name: "Your logo here", logo: null, url: null },
                 ].map((sponsor, i) => (
                   <div
                     key={i}
-                    onMouseEnter={() => setHoveredSponsor(`platinum-${i}`)}
-                    onMouseLeave={() => setHoveredSponsor(null)}
-                    className="group relative aspect-[2/1] rounded-3xl border-2 border-primary/40 bg-gradient-to-br from-primary/20 via-card/40 to-card/40 backdrop-blur-xl hover:border-primary/80 transition-all hover:scale-105 overflow-hidden"
+                    onMouseEnter={() => { setHoveredSponsor(`platinum-${i}`); setHoveredCategory('platinum'); }}
+                    onMouseLeave={() => { setHoveredSponsor(null); setHoveredCategory(null); }}
+                    className={`group relative rounded-3xl border-2 border-primary/40 bg-gradient-to-br from-primary/20 via-card/40 to-card/40 backdrop-blur-xl hover:border-primary/80 transition-all hover:scale-105 overflow-hidden ${hoveredSponsor === `platinum-${i}` ? 'scale-[1.04] shadow-2xl z-10' : ''}`}
+                    style={{ flex: '0 1 560px', maxWidth: '56%' }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="relative h-full flex items-center justify-center p-8">
-                      {sponsor.logo ? (
-                        sponsor.url ? (
-                          <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
-                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-32 mx-auto" />
-                          </a>
+                    <AspectRatio ratio={16 / 9}>
+                      <div className="relative h-full flex items-center justify-center p-10">
+                        {sponsor.logo ? (
+                          sponsor.url ? (
+                            <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                              <img src={sponsor.logo} alt={sponsor.name} className="max-h-40 mx-auto object-contain" />
+                            </a>
+                          ) : (
+                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-40 mx-auto object-contain" />
+                          )
                         ) : (
-                          <img src={sponsor.logo} alt={sponsor.name} className="max-h-32 mx-auto" />
-                        )
-                      ) : (
-                        <span className="text-center text-muted-foreground font-semibold text-xl">
-                          {sponsor.name}
-                        </span>
-                      )}
-                    </div>
+                          <span className="text-center text-muted-foreground font-semibold text-2xl">
+                            {sponsor.name}
+                          </span>
+                        )}
+                      </div>
+                    </AspectRatio>
                     <div className="absolute top-4 right-4">
                       <Trophy className="w-6 h-6 text-primary" />
                     </div>
@@ -438,34 +443,37 @@ const Index = () => {
                 <h3 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">Gold Sponsors</h3>
                 <Award className="w-7 h-7 text-yellow-500" />
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+              <div className={`flex flex-wrap justify-center transition-gap duration-300 ${hoveredCategory === 'gold' ? 'gap-6 md:gap-8' : 'gap-6'}`}>
                 {[
                   { name: "YRI Fellowship", logo: "YRI-logo-white.webp", url: "https://yriscience.com/" },
-                  { name: "Gold 2", logo: null, url: null },
-                  { name: "Gold 3", logo: null, url: null },
+                  { name: "Your logo here", logo: null, url: null },
+                  //{ name: "Gold 3", logo: null, url: null },
                 ].map((sponsor, i) => (
                   <div
                     key={i}
-                    onMouseEnter={() => setHoveredSponsor(`gold-${i}`)}
-                    onMouseLeave={() => setHoveredSponsor(null)}
-                    className="group relative aspect-square rounded-2xl border-2 border-yellow-500/40 bg-gradient-to-br from-yellow-500/20 via-card/40 to-card/40 backdrop-blur-xl hover:border-yellow-500/80 transition-all hover:scale-105 overflow-hidden"
+                    onMouseEnter={() => { setHoveredSponsor(`gold-${i}`); setHoveredCategory('gold'); }}
+                    onMouseLeave={() => { setHoveredSponsor(null); setHoveredCategory(null); }}
+                    className={`group relative rounded-2xl border-2 border-yellow-500/40 bg-gradient-to-br from-yellow-500/20 via-card/40 to-card/40 backdrop-blur-xl hover:border-yellow-500/80 transition-all hover:scale-105 overflow-hidden ${hoveredSponsor === `gold-${i}` ? 'scale-[1.04] shadow-2xl z-10' : ''}`}
+                    style={{ flex: '0 1 360px', maxWidth: '34%' }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="relative h-full flex items-center justify-center p-6">
-                      {sponsor.logo ? (
-                        sponsor.url ? (
-                          <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
-                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-24 mx-auto" />
-                          </a>
+                    <AspectRatio ratio={16 / 9}>
+                      <div className="relative h-full flex items-center justify-center p-6">
+                        {sponsor.logo ? (
+                          sponsor.url ? (
+                            <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                              <img src={sponsor.logo} alt={sponsor.name} className="max-h-32 mx-auto object-contain" />
+                            </a>
+                          ) : (
+                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-32 mx-auto object-contain" />
+                          )
                         ) : (
-                          <img src={sponsor.logo} alt={sponsor.name} className="max-h-24 mx-auto" />
-                        )
-                      ) : (
-                        <span className="text-center text-muted-foreground font-medium text-lg">
-                          {sponsor.name}
-                        </span>
-                      )}
-                    </div>
+                          <span className="text-center text-muted-foreground font-medium text-xl">
+                            {sponsor.name}
+                          </span>
+                        )}
+                      </div>
+                    </AspectRatio>
                     <div className="absolute top-3 right-3">
                       <Award className="w-5 h-5 text-yellow-500" />
                     </div>
@@ -481,34 +489,37 @@ const Index = () => {
                 <h3 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-300 to-gray-500">Silver Sponsors</h3>
                 <Award className="w-7 h-7 text-gray-400" />
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+              <div className={`flex flex-wrap justify-center transition-gap duration-300 ${hoveredCategory === 'silver' ? 'gap-6 md:gap-8' : 'gap-6'}`}>
                 {[
-                  { name: "Silver 1", logo: null, url: null },
-                  { name: "Silver 2", logo: null, url: null },
-                  { name: "Silver 3", logo: null, url: null },
+                  { name: "Your logo here", logo: null, url: null },
+                  { name: "Your logo here", logo: null, url: null },
+                  //{ name: "Your logo here", logo: null, url: null },
                 ].map((sponsor, i) => (
                   <div
                     key={i}
-                    onMouseEnter={() => setHoveredSponsor(`silver-${i}`)}
-                    onMouseLeave={() => setHoveredSponsor(null)}
-                    className="group relative aspect-square rounded-2xl border-2 border-gray-400/40 bg-gradient-to-br from-gray-400/20 via-card/40 to-card/40 backdrop-blur-xl hover:border-gray-400/80 transition-all hover:scale-105 overflow-hidden"
+                    onMouseEnter={() => { setHoveredSponsor(`silver-${i}`); setHoveredCategory('silver'); }}
+                    onMouseLeave={() => { setHoveredSponsor(null); setHoveredCategory(null); }}
+                    className={`group relative rounded-2xl border-2 border-gray-400/40 bg-gradient-to-br from-gray-400/20 via-card/40 to-card/40 backdrop-blur-xl hover:border-gray-400/80 transition-all hover:scale-105 overflow-hidden ${hoveredSponsor === `silver-${i}` ? 'scale-[1.04] shadow-2xl z-10' : ''}`}
+                    style={{ flex: '0 1 300px', maxWidth: '30%' }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-gray-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="relative h-full flex items-center justify-center p-6">
-                      {sponsor.logo ? (
-                        sponsor.url ? (
-                          <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
-                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-24 mx-auto" />
-                          </a>
+                    <AspectRatio ratio={16 / 9}>
+                      <div className="relative h-full flex items-center justify-center p-6">
+                        {sponsor.logo ? (
+                          sponsor.url ? (
+                            <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                              <img src={sponsor.logo} alt={sponsor.name} className="max-h-32 mx-auto object-contain" />
+                            </a>
+                          ) : (
+                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-32 mx-auto object-contain" />
+                          )
                         ) : (
-                          <img src={sponsor.logo} alt={sponsor.name} className="max-h-24 mx-auto" />
-                        )
-                      ) : (
-                        <span className="text-center text-muted-foreground font-medium text-lg">
-                          {sponsor.name}
-                        </span>
-                      )}
-                    </div>
+                          <span className="text-center text-muted-foreground font-medium text-xl">
+                            {sponsor.name}
+                          </span>
+                        )}
+                      </div>
+                    </AspectRatio>
                     <div className="absolute top-3 right-3">
                       <Award className="w-5 h-5 text-gray-400" />
                     </div>
@@ -524,79 +535,85 @@ const Index = () => {
                 <h3 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">Bronze Sponsors</h3>
                 <TrendingUp className="w-6 h-6 text-primary/60" />
               </div>
-              <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
+              <div className={`flex flex-wrap justify-center transition-gap duration-300 ${hoveredCategory === 'bronze' ? 'gap-6 md:gap-8' : 'gap-4'}`}>
                 {[
-                  { name: "Bronze 1", logo: null, url: null },
-                  { name: "Bronze 2", logo: null, url: null },
-                  { name: "Bronze 3", logo: null, url: null },
-                  { name: "Bronze 4", logo: null, url: null },
-                  { name: "Bronze 5", logo: null, url: null },
+                  { name: "Your logo here", logo: null, url: null },
+                  { name: "Your logo here", logo: null, url: null },
+                  //{ name: "Your logo here", logo: null, url: null },
+                  //{ name: "Your logo here", logo: null, url: null },
+                  //{ name: "Your logo here", logo: null, url: null },
                 ].map((sponsor, i) => (
                   <div
                     key={i}
-                    onMouseEnter={() => setHoveredSponsor(`bronze-${i}`)}
-                    onMouseLeave={() => setHoveredSponsor(null)}
-                    className="group relative aspect-square rounded-xl border border-primary/20 bg-card/20 backdrop-blur-sm hover:border-primary/40 transition-all hover:scale-105 overflow-hidden"
+                    onMouseEnter={() => { setHoveredSponsor(`bronze-${i}`); setHoveredCategory('bronze'); }}
+                    onMouseLeave={() => { setHoveredSponsor(null); setHoveredCategory(null); }}
+                    className={`group relative rounded-xl border border-primary/20 bg-card/20 backdrop-blur-sm hover:border-primary/40 transition-all hover:scale-105 overflow-hidden ${hoveredSponsor === `bronze-${i}` ? 'scale-[1.04] shadow-md z-10' : ''}`}
+                    style={{ flex: '0 1 200px', maxWidth: '20%' }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="relative h-full flex items-center justify-center p-3">
-                      {sponsor.logo ? (
-                        sponsor.url ? (
-                          <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
-                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-12 mx-auto" />
-                          </a>
+                    <AspectRatio ratio={16 / 9}>
+                      <div className="relative h-full flex items-center justify-center p-4">
+                        {sponsor.logo ? (
+                          sponsor.url ? (
+                            <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                              <img src={sponsor.logo} alt={sponsor.name} className="max-h-20 mx-auto object-contain" />
+                            </a>
+                          ) : (
+                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-20 mx-auto object-contain" />
+                          )
                         ) : (
-                          <img src={sponsor.logo} alt={sponsor.name} className="max-h-12 mx-auto" />
-                        )
-                      ) : (
-                        <span className="text-center text-muted-foreground font-medium text-xs">
-                          {sponsor.name}
-                        </span>
-                      )}
-                    </div>
+                          <span className="text-center text-muted-foreground font-medium text-sm">
+                            {sponsor.name}
+                          </span>
+                        )}
+                      </div>
+                    </AspectRatio>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Community Sponsors */}
+            {/* Community Partners */}
             <div className="space-y-6">
               <div className="flex items-center justify-center gap-3">
                 <Heart className="w-6 h-6 text-primary/60" />
-                <h3 className="text-xl md:text-2xl font-bold text-muted-foreground">Community Sponsors</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-muted-foreground">Community Partners</h3>
                 <Heart className="w-6 h-6 text-primary/60" />
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+              <div className={`flex flex-wrap justify-center transition-gap duration-300 ${hoveredCategory === 'community' ? 'gap-6 md:gap-8' : 'gap-4'}`}>
                 {[
                   { name: ".xyz", logo: xyzLogo, url: "https://gen.xyz" },
-                  { name: "Community 2", logo: null, url: null },
-                  { name: "Community 3", logo: null, url: null },
-                  { name: "Community 4", logo: null, url: null },
-                  { name: "Community 5", logo: null, url: null },
-                  { name: "Community 6", logo: null, url: null },
+                  { name: "Your logo here", logo: null, url: null },
+                  { name: "Your logo here", logo: null, url: null },
+                  //{ name: "Your logo here", logo: null, url: null },
+                  //{ name: "Your logo here", logo: null, url: null },
+                  //{ name: "Your logo here", logo: null, url: null },
                 ].map((sponsor, i) => (
                   <div
                     key={i}
-                    onMouseEnter={() => setHoveredSponsor(`community-${i}`)}
-                    onMouseLeave={() => setHoveredSponsor(null)}
-                    className="group relative aspect-square rounded-xl border border-primary/20 bg-card/20 backdrop-blur-sm hover:border-primary/40 transition-all hover:scale-105 overflow-hidden"
+                    onMouseEnter={() => { setHoveredSponsor(`community-${i}`); setHoveredCategory('community'); }}
+                    onMouseLeave={() => { setHoveredSponsor(null); setHoveredCategory(null); }}
+                    className={`group relative rounded-xl border border-primary/20 bg-card/20 backdrop-blur-sm hover:border-primary/40 transition-all hover:scale-105 overflow-hidden ${hoveredSponsor === `community-${i}` ? 'scale-[1.04] shadow-md z-10' : ''}`}
+                    style={{ flex: '0 1 180px', maxWidth: '18%' }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="relative h-full flex items-center justify-center p-3">
-                      {sponsor.logo ? (
-                        sponsor.url ? (
-                          <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
-                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-10 mx-auto" />
-                          </a>
+                    <AspectRatio ratio={16 / 9}>
+                      <div className="relative h-full flex items-center justify-center p-3">
+                        {sponsor.logo ? (
+                          sponsor.url ? (
+                            <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                              <img src={sponsor.logo} alt={sponsor.name} className="max-h-20 mx-auto object-contain" />
+                            </a>
+                          ) : (
+                            <img src={sponsor.logo} alt={sponsor.name} className="max-h-20 mx-auto object-contain" />
+                          )
                         ) : (
-                          <img src={sponsor.logo} alt={sponsor.name} className="max-h-10 mx-auto" />
-                        )
-                      ) : (
-                        <span className="text-center text-muted-foreground font-medium text-xs">
-                          {sponsor.name}
-                        </span>
-                      )}
-                    </div>
+                          <span className="text-center text-muted-foreground font-medium text-xs">
+                            {sponsor.name}
+                          </span>
+                        )}
+                      </div>
+                    </AspectRatio>
                   </div>
                 ))}
               </div>
